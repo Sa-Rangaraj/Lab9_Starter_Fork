@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+
   <style>
     button {
       margin: 3px;
@@ -68,26 +69,36 @@
       </fieldset>
     </form>
 
-    <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
-    </section>
-  </main>
+    
+  <section id="error-btns">
+    <button type="button">Console Log</button>
+    <button type="button">Console Error</button>
+    <button type="button">Console Count</button>
+    <button type="button">Console Warn</button>
+    <button type="button">Console Assert</button>
+    <button type="button">Console Clear</button>
+    <button type="button">Console Dir</button>
+    <button type="button">Console dirxml</button>
+    <button type="button">Console Group Start</button>
+    <button type="button">Console Group End</button>
+    <button type="button">Console Table</button>
+    <button type="button">Start Timer</button>
+    <button type="button">End Timer</button>
+    <button type="button">Console Trace</button>
+    <button type="button">Trigger a Global Error</button>
+  </section>
+</main>
+
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "86f5346582be4f63b2dc187da3542684"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
 
   <script>
+    
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -102,7 +113,163 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+  
+    console.log("Correct version  6    !!!");
+    TrackJS.track('Testing TrackJS!');
+    const buttons = document.querySelectorAll("#error-btns button");
+
+    const logButton = buttons[0];
+    const errorButton = buttons[1];
+    const countButton = buttons[2];
+    const warnButton = buttons[3];
+    const assertButton = buttons[4];
+    const clearButton = buttons[5];
+    const dirButton = buttons[6];
+    const dirxmlButton = buttons[7];
+    const groupStartButton = buttons[8];
+    const groupEndButton = buttons[9];
+    const tableButton = buttons[10];
+    const timerStartButton = buttons[11];
+    const timerEndButton = buttons[12];
+    const traceButton = buttons[13];
+    const globalErrorButton = buttons[14];
+
+
+
+
+    logButton.addEventListener("click", () => {
+      console.log("Console Log Demo");
+    });
+
+    errorButton.addEventListener("click", () => {
+    console.error("Console Error Demo");
+    });
+
+
+    countButton.addEventListener("click", () => {
+     console.count("Counter");
+    });
+
+    warnButton.addEventListener("click", () => {
+    console.warn("Console Warn Demo");
+    });
+   
+    assertButton.addEventListener("click", () => {
+      const isFalse = false;
+      console.assert(loggedIn === true, "Console Warn Demo, found false correctly");
+    });
+
+  clearButton.addEventListener("click", () => {
+    console.clear();
+  });
+
+
+  dirButton.addEventListener("click", () => {
+    console.dir(dirButton);
+  });
+
+  dirxmlButton.addEventListener("click", () => {
+    console.dirxml(dirButton);
+  });
+
+  groupStartButton.addEventListener("click", () => {
+    console.group("console.group");
+  });
+
+  groupEndButton.addEventListener("click", () => {
+    console.groupEnd();
+  });
+
+
+  tableButton.addEventListener("click", () => {
+    const table = [
+      { Item: 1, Location: "First" },
+      { Item: 2, Location: "Second" },
+      { Item: 3, Location: "Third" },
+    ];
+
+    console.table(table);
+
+  });
+
+
+
+  timerStartButton.addEventListener("click", () => {
+    console.time("Console Timer Demo");
+  });
+
+  timerEndButton.addEventListener("click", () => {
+    console.timeEnd("Console Timer Demo");
+  });
+
+
+  traceButton.addEventListener("click", () => {
+    function deep() {
+      deeper();
+    }
+
+    function deeper() {
+      deepest();
+    }
+
+    function deepest() {
+      console.trace("Console Trace Demo");
+    }
+
+    deep();
+  });
+
+
+
+
+
+  class CalcError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = "CalcError";
+    }
+  }
+
+  form.addEventListener('submit', () => {
+
+    try {
+      let num1 = document.querySelector('#first-num').value;
+      let num2 = document.querySelector('#second-num').value;
+
+      if (num1 === "" || num2 === "") {
+        throw new CalculationError("Missing Input.");
+      }
+
+      console.log("Calc did not have missing input (trycatch):");
+
+    } catch (error) {
+
+      console.error("(trycatch) Calculation Error:", error);
+
+    } finally {
+
+      console.log("calc try catch has ended.");
+
+    }
+  });
+
+
+
+
+  window.onerror = function(message, source, lineno, colno, error) {
+    console.log("A global error has occured");
+    return false;
+  };
+
+globalErrorButton.addEventListener("click", () => {
+  let num = 1;
+  num.length();
+});
+
   </script>
+
+
+
 </body>
 
 </html>
